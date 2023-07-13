@@ -40,7 +40,7 @@ public class DriverSingleton {
     }
     static void delay(long detik){
         try {
-            Thread.sleep(detik*1000); // delay 3 detik
+            Thread.sleep(detik*1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
