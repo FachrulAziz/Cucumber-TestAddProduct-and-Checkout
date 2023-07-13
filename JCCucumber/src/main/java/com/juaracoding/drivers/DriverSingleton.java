@@ -36,5 +36,13 @@ public class DriverSingleton {
     public static void closeObjectInstance(){
         instance = null;
         driver.quit();
+        delay(2);
+    }
+    static void delay(long detik){
+        try {
+            Thread.sleep(detik*1000); // delay 3 detik
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

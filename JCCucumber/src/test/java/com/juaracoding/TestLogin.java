@@ -17,47 +17,61 @@ public class TestLogin {
     static ExtentTest extentTest;
     static LoginPage loginPage = new LoginPage();
 
-    public TestLogin() {
+    public TestLogin(){
         driver = Hooks.driver;
         extentTest = Hooks.extentTest;
     }
 
-    @Given("User enter url DemoQA")
-    public void User_enter_url_DemoQA() {
+    @Given("User enter url TMS")
+    public void user_enter_url_tms(){
         driver.get(Constants.URL);
-        extentTest.log(LogStatus.PASS, "User enter url DemoQA");
+        extentTest.log(LogStatus.PASS, "User enter URL TMS");
     }
 
-    @When("User go to login")
-    public void user_go_to_login() {
-        driver.get("https://shop.demoqa.com/my-account/");
-        loginPage.btnAccount();
-        extentTest.log(LogStatus.PASS, "User go to login");
-    }
-
-    @And("User enter valid username")
-    public void user_enter_valid_username() {
-        driver.navigate().refresh();
-        loginPage.enterUsername("fachrulaziz95");
-        extentTest.log(LogStatus.PASS, "User enter valid username");
+    @When("User enter valid username")
+    public void user_enter_valid_username(){
+        loginPage.enterUsername("D6220404");
+        extentTest.log(LogStatus.PASS,"User enter valid username");
     }
 
     @And("User enter valid password")
-    public void user_enter_valid_password() {
-        loginPage.enterPassword("vegazr4362");
-        extentTest.log(LogStatus.PASS, "User enter valid password");
+    public void user_enter_valid_password(){
+        loginPage.enterPassword("1996-09-29");
+        extentTest.log(LogStatus.PASS,"User enter valid password");
     }
 
     @And("User click button login")
-    public void user_click_button_login() {
+    public void user_click_button_login(){
         loginPage.clickBtnLogin();
-        extentTest.log(LogStatus.PASS, "User click button login");
+        extentTest.log(LogStatus.PASS,"User click button login");
     }
 
     @Then("User get text title page dashboard")
     public void user_get_text_title_page_dashboard(){
-        Hooks.delay(1);
-        Assert.assertEquals(loginPage.getTxtDashboard(),"MY ACCOUNT");
+        Hooks.delay(2);
+        Assert.assertEquals(loginPage.getTxtDashboard(),"Dashboard");
         extentTest.log(LogStatus.PASS,"User get text title page dashboard");
+    }
+
+    @When("User enter invalid username")
+    public void user_enter_invalid_username(){
+        Hooks.delay(1);
+        loginPage.logoutStaff();
+        loginPage.logout();
+        loginPage.enterUsername("D6220404");
+        extentTest.log(LogStatus.PASS,"User enter invalid username");
+    }
+
+    @And("User enter invalid password")
+    public void user_enter_invalid_password(){
+        loginPage.enterPassword("fjdfjdhsjk");
+        extentTest.log(LogStatus.PASS,"User enter invalid password");
+    }
+
+    @Then("User get text invalid credentials")
+    public void user_get_text_invalid_credentials(){
+        Hooks.delay(2);
+        Assert.assertTrue(loginPage.getTxtInvalidCredentials().contains("Wrong username or password..!"));
+        extentTest.log(LogStatus.PASS,"User get text invalid credentials");
     }
 }

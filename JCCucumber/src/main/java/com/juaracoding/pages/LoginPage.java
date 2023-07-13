@@ -13,41 +13,67 @@ public class LoginPage {
         this.driver = DriverSingleton.getDriver();
         PageFactory.initElements(driver, this);
     }
-    @FindBy(xpath = "//input[@name='username']")
+    @FindBy(xpath = "//input[@placeholder='NIK']")
     WebElement username;
-    @FindBy(xpath = "//input[@name='password']")
+    @FindBy(xpath = "//input[@placeholder='Password']")
     WebElement password;
-    @FindBy(xpath = "//button[@name='login']")
+    @FindBy(xpath = "//button[@type='submit']")
     WebElement btnLogin;
 
-    @FindBy(xpath = "//p[@class='oxd-userdropdown-name']")
-    WebElement btnUsername;
+    @FindBy(xpath = "//span[normalize-space()='ALFIN ERIA SEPTIADY']")
+    WebElement btnStaff;
 
-    @FindBy(xpath = "//a[normalize-space()='Logout']")
+    @FindBy(xpath = "//span[normalize-space()='ADITYA RIDWAN NUGRAHA']")
+    WebElement btnUser1;
+
+    @FindBy(xpath = "//span[normalize-space()='ALFIN ERIA SEPTIADY']")
+    WebElement btnUser2;
+
+    @FindBy(xpath = "//span[normalize-space()='HUSAINI AL BANNA']")
+    WebElement btnUser3;
+
+    @FindBy(xpath = "//span[normalize-space()='NURUL HASNI']")
+    WebElement btnUser4;
+
+    @FindBy(xpath = "//a[normalize-space()='Log Out']")
     WebElement btnLogout;
 
-    @FindBy(xpath = "//h1[@class='page-title']")
+    @FindBy(xpath = "//h1[@class='page-header']")
     WebElement txtDashboard;
 
-    @FindBy(xpath = "//p[@class='oxd-text oxd-text--p oxd-alert-content-text']")
+    @FindBy(xpath = "//div[@class='alert alert-danger alert-dismissable']")
     WebElement txtInvalidCredentials;
 
-    @FindBy(xpath = "//span[contains(@class, 'input-field-error-message')]")
-    WebElement txtRequired;
-
-    public void btnAccount() {
-        this.driver = driver;
-        driver.get("https://shop.demoqa.com/my-account/");
-    }
 
     public void login(String username, String password){
+        this.username.clear();
+        this.password.clear();
         this.username.sendKeys(username);
         this.password.sendKeys(password);
         btnLogin.click();
     }
 
+    public void logoutStaff(){
+        btnStaff.click();
+    }
+
+    public void logoutUser1(){
+        btnUser1.click();
+    }
+
+    public void logoutUser2(){
+        btnUser2.click();
+    }
+
+    public void logoutUser3(){
+        btnUser3.click();
+    }
+
+    public void logoutUser4(){
+        btnUser4.click();
+    }
+
     public void logout(){
-        btnUsername.click();
         btnLogout.click();
     }
 
@@ -61,6 +87,7 @@ public class LoginPage {
 
     public void clickBtnLogin(){
         btnLogin.click();
+        delay(3);
     }
 
     public String getTxtDashboard(){
@@ -70,9 +97,11 @@ public class LoginPage {
     public String getTxtInvalidCredentials(){
         return txtInvalidCredentials.getText();
     }
-
-    public String getAtributUsername(){
-        return username.getAttribute("required"); // return true, value dari required
+    static void delay(long detik){
+        try {
+            Thread.sleep(detik*1000); // delay 3 detik
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
-
 }
